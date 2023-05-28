@@ -1,5 +1,6 @@
 :root {
   --purple: rgb(86, 43, 129);
+  --dark-purple: rgb(71, 35, 107);
   --white: rgb(255, 255, 255);
   --border: rgb(182, 182, 182);
   --light-grey: rgb(240, 240, 240);
@@ -41,7 +42,6 @@ textarea {
 
 textarea {
   resize: none;
-  padding-top: 0.5rem;
 }
 
 input:focus {
@@ -74,4 +74,8 @@ label {
   border-radius: 0.25rem;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: var(--dark-purple);
 }
