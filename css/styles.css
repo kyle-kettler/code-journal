@@ -1,0 +1,18 @@
+:root {
+  --purple: rgb(86, 43, 129);
+  --white: rgb(255, 255, 255);
+}
+
+body {
+  font-family: sans-serif;
+}
+
+header {
+  background-color: var(--purple);
+  color: var(--white);
+  padding: 1rem 0;
+}
+
+h2 {
+  font-weight: 300;
+}
