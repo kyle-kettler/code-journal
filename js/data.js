@@ -10,7 +10,6 @@ var data = {
 window.addEventListener('beforeunload', event => {
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('data', dataJSON);
-  // localStorage.clear()
 });
 
 const previousEntriesJSON = localStorage.getItem('data');
