@@ -46,6 +46,7 @@ $newEntryForm.addEventListener('submit', event => {
 function renderEntry(entry) {
   const $entryItem = document.createElement('li');
   $entryItem.setAttribute('class', 'row');
+  $entryItem.setAttribute('data-entry-id', entry.entryID);
 
   const $entryCol1 = document.createElement('div');
   $entryCol1.setAttribute('class', 'entry-col');
@@ -58,8 +59,14 @@ function renderEntry(entry) {
   const $entryCol2 = document.createElement('div');
   $entryCol2.setAttribute('class', 'entry-col');
 
+  const $entryHeadlineWrap = document.createElement('div');
+  $entryHeadlineWrap.setAttribute('class', 'flex space-between');
+
   const $entryH2 = document.createElement('h2');
   $entryH2.textContent = entry.title;
+
+  const $entryPencil = document.createElement('i');
+  $entryPencil.setAttribute('class', 'fa-solid fa-pencil');
 
   const $entryNote = document.createElement('p');
   $entryNote.textContent = entry.notes;
@@ -67,7 +74,9 @@ function renderEntry(entry) {
   $entryItem.appendChild($entryCol1);
   $entryItem.appendChild($entryCol2);
   $entryCol1.appendChild($entryImg);
-  $entryCol2.appendChild($entryH2);
+  $entryCol2.appendChild($entryHeadlineWrap);
+  $entryHeadlineWrap.appendChild($entryH2);
+  $entryHeadlineWrap.appendChild($entryPencil);
   $entryCol2.appendChild($entryNote);
 
   return $entryItem;
