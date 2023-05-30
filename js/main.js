@@ -25,7 +25,7 @@ function renderEntry(entry) {
   $entryItem.setAttribute('class', 'row');
 
   const $entryCol1 = document.createElement('div');
-  $entryCol1.setAttribute('class', 'col-half');
+  $entryCol1.setAttribute('class', 'entry-col');
 
   const $entryImg = document.createElement('img');
   $entryImg.setAttribute('src', entry.photoURL);
@@ -33,7 +33,7 @@ function renderEntry(entry) {
   $entryImg.setAttribute('alt', entry.title);
 
   const $entryCol2 = document.createElement('div');
-  $entryCol2.setAttribute('class', 'col-half row');
+  $entryCol2.setAttribute('class', 'entry-col');
 
   const $entryH2 = document.createElement('h2');
   $entryH2.textContent = entry.title;
@@ -50,4 +50,10 @@ function renderEntry(entry) {
   return $entryItem;
 }
 
-renderEntry(data.entries[0]);
+document.addEventListener('DOMContentLoaded', event => {
+  const $entryList = document.querySelector('#entries-list');
+
+  for (const entry in data.entries) {
+    $entryList.appendChild(renderEntry(data.entries[entry]));
+  }
+});
