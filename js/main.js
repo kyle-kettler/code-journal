@@ -34,11 +34,11 @@ $newEntryForm.addEventListener('submit', event => {
 
   // Create dom tree and add new entry to the page
   $entryList.prepend(renderEntry(newEntry));
-  viewSwap($entriesView);
+  viewSwap('entries');
 
   // Hide no entries text
   if ($entryList.firstChild) {
-    toggleNoEntries();
+    toggleNoEntries($formView);
   }
 });
 
@@ -73,10 +73,20 @@ function renderEntry(entry) {
   return $entryItem;
 }
 
-// Add all entries to the page
+// Determine what content to show on the page at load
 document.addEventListener('DOMContentLoaded', event => {
   for (const entry in data.entries) {
     $entryList.appendChild(renderEntry(data.entries[entry]));
+  }
+
+  if (data.view === 'entries') {
+    viewSwap('entries');
+  } else if (data.view === 'entry-form') {
+    viewSwap('entry-form');
+  }
+
+  if ($entryList.firstChild) {
+    toggleNoEntries($formView);
   }
 });
 
@@ -87,14 +97,13 @@ function toggleNoEntries() {
 
 // Swap the view between entries and form
 function viewSwap(view) {
-  const $viewData = view.getAttribute('data-view');
-  data.view = $viewData;
+  data.view = view;
 
-  if ($viewData === 'entries') {
+  if (view === 'entries') {
     $formView.classList.add('hidden');
     $entriesView.classList.remove('hidden');
 
-  } else if ($viewData === 'entry-form') {
+  } else if (view === 'entry-form') {
     $entriesView.classList.add('hidden');
     $formView.classList.remove('hidden');
   }
@@ -102,10 +111,10 @@ function viewSwap(view) {
 
 // Show entries when nav item is clicked
 $entriesLink.addEventListener('click', event => {
-  viewSwap($entriesView);
+  viewSwap('entries');
 });
 
 // Show form when new button is clicked
 $formLink.addEventListener('click', event => {
-  viewSwap($formView);
+  viewSwap('entry-form');
 });
