@@ -62,20 +62,21 @@
             <textarea id="notes" name="notes" rows="6" required></textarea>
           </div>
           <div class="col-full submit-row">
-            <button type="submit" class="submit-button">Save</button>
+            <button type="submit" class="button">Save</button>
           </div>
         </div>
       </form>
     </div>
 
-    <div data-view="entries" class="hidden">
+    <div data-view="entries">
       <div class="row">
-        <div class="col-full">
+        <div class="col-full flex space-between">
           <h1>Entries</h1>
+          <a class="button" id="form-link">New</a>
         </div>
       </div>
       <p id="no-entries" class="no-entries">No entries have been recorded.</p>
-      <ul id="entries-list" class="entries-list hidden"></ul>
+      <ul id="entries-list" class="entries-list"></ul>
     </div>
   </main>
   <script src="js/data.js"></script>

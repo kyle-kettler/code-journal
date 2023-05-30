@@ -72,7 +72,7 @@ label {
   justify-content: end;
 }
 
-.submit-button {
+.button {
   background-color: var(--purple);
   color: var(--white);
   padding: 0.5rem 1rem;
@@ -82,7 +82,7 @@ label {
   cursor: pointer;
 }
 
-.submit-button:hover {
+.button:hover {
   background-color: var(--dark-purple);
 }
 
@@ -109,4 +109,13 @@ label {
 
 .nav > a {
   cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
 }
