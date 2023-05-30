@@ -22,8 +22,9 @@
   <header>
     <div class="container">
       <div class="row">
-        <div class="col-full">
+        <div class="col-full nav">
           <h3>Code Journal</h3>
+          <a id="entries-link">Entries</a>
         </div>
       </div>
     </div>
@@ -67,14 +68,14 @@
       </form>
     </div>
 
-    <div data-view="entries">
+    <div data-view="entries" class="hidden">
       <div class="row">
         <div class="col-full">
           <h1>Entries</h1>
         </div>
       </div>
-      <ul id="entries-list" class="entries-list hidden"></ul>
       <p id="no-entries" class="no-entries">No entries have been recorded.</p>
+      <ul id="entries-list" class="entries-list hidden"></ul>
     </div>
   </main>
   <script src="js/data.js"></script>

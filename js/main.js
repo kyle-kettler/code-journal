@@ -10,6 +10,7 @@ const $noEntries = document.querySelector('#no-entries');
 // View elements
 const $formView = document.querySelector('[data-view="entry-form"]');
 const $entriesView = document.querySelector('[data-view="entries"]');
+const $entriesLink = document.querySelector('#entries-link');
 
 $imgInput.addEventListener('input', event => {
   const imgPath = event.target.value;
@@ -85,4 +86,6 @@ function viewSwap(view) {
   }
 }
 
-viewSwap($entriesView);
+$entriesLink.addEventListener('click', event => {
+  viewSwap($entriesView);
+});
