@@ -79,11 +79,7 @@ document.addEventListener('DOMContentLoaded', event => {
     $entryList.appendChild(renderEntry(data.entries[entry]));
   }
 
-  if (data.view === 'entries') {
-    viewSwap('entries');
-  } else if (data.view === 'entry-form') {
-    viewSwap('entry-form');
-  }
+  viewSwap(data.view);
 
   if ($entryList.firstChild) {
     toggleNoEntries($formView);
