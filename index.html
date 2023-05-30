@@ -11,6 +11,9 @@
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Proza+Libre:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -18,10 +21,51 @@
 <body>
   <header>
     <div class="container">
+      <div class="row">
+        <div class="col-full">
+          <h2>Code Journal</h2>
+        </div>
+      </div>
     </div>
   </header>
   <main class="container">
-    <div data-view="entry-form"></div>
+    <div data-view="entry-form">
+      <form id="new-entry-form">
+        <div class="row">
+          <div class="col-full">
+            <h1>New Entry</h1>
+          </div>
+          <div class="col-half">
+            <div class="img-wrap">
+              <img src="images/placeholder-image-square.jpg" id="entry-img" class="entry-img" alt="new entry photo">
+            </div>
+          </div>
+          <div class="col-half row">
+            <div class="form-row">
+              <div>
+                <label for="title">Title</label>
+              </div>
+              <input type="text" id="title" name="title" required/>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="img-url">Photo URL</label>
+              </div>
+              <input type="text" id="img-url" name="img" required/>
+            </div>
+          </div>
+          <div class="col-full">
+            <div>
+              <label for="notes">Notes</label>
+            </div>
+            <textarea id="notes" name="notes" rows="6" required></textarea>
+          </div>
+          <div class="col-full submit-row">
+            <button type="submit" class="submit-button">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
     <div data-view="entries" class="hidden"></div>
   </main>
   <script src="js/data.js"></script>

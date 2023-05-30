@@ -5,16 +5,22 @@
 .container {
   max-width: 575px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 1rem;
+  align-items: flex-start;
 }
 
-.column-full,
-.column-half {
+.form-row {
+  width: 100%;
+}
+
+.col-full,
+.col-half {
   width: 100%;
 }
 
@@ -23,12 +29,16 @@
     max-width: 900px;
   }
 
-  .column-full,
-  .column-half {
+  .row {
+    row-gap: 2rem;
+  }
+
+  .col-full,
+  .col-half {
     padding: 0 0.75rem;
   }
 
-  .column-half {
+  .col-half {
     width: 50%;
   }
 }
