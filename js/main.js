@@ -2,6 +2,9 @@ const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
 
+const $entryList = document.querySelector('#entries-list');
+const $noEntries = document.querySelector('#no-entries');
+
 $imgInput.addEventListener('input', event => {
   const imgPath = event.target.value;
   $newEntryImg.src = imgPath;
@@ -51,9 +54,13 @@ function renderEntry(entry) {
 }
 
 document.addEventListener('DOMContentLoaded', event => {
-  const $entryList = document.querySelector('#entries-list');
-
   for (const entry in data.entries) {
     $entryList.appendChild(renderEntry(data.entries[entry]));
   }
 });
+
+function toggleNoEntries() {
+  $noEntries.classList.toggle('hidden');
+}
+
+toggleNoEntries();
