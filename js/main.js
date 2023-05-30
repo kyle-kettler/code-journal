@@ -1,7 +1,8 @@
-// New nntry form elements
+// New entry form elements
 const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
+const $entryFormTitle = document.querySelector('#entry-form-title');
 
 // Entry list elements
 const $entryList = document.querySelector('#entries-list');
@@ -122,4 +123,21 @@ $entriesLink.addEventListener('click', event => {
 // Show form when new button is clicked
 $formLink.addEventListener('click', event => {
   viewSwap('entry-form');
+});
+
+$entryList.addEventListener('click', event => {
+  if (event.target.tagName === 'I') {
+    viewSwap('entry-form');
+
+    for (const entry in data.entries) {
+      const targetEntryId = event.target.closest('[data-entry-id]').getAttribute('data-entry-id');
+      if (data.entries[entry].entryID === parseInt(targetEntryId)) {
+        data.editing = data.entries[entry];
+      }
+    }
+    $newEntryForm.elements.title.value = data.editing.title;
+    $newEntryForm.elements.img.value = data.editing.photoURL;
+    $newEntryForm.elements.notes.value = data.editing.notes;
+    $entryFormTitle.textContent = 'Edit Entry';
+  }
 });
