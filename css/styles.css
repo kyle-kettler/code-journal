@@ -92,3 +92,10 @@ label {
   flex-wrap: wrap;
   row-gap: 2rem;
 }
+
+.no-entries {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
