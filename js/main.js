@@ -13,11 +13,13 @@ const $entriesView = document.querySelector('[data-view="entries"]');
 const $entriesLink = document.querySelector('#entries-link');
 const $formLink = document.querySelector('#form-link');
 
+// Add image to placeholder from form
 $imgInput.addEventListener('input', event => {
   const imgPath = event.target.value;
   $newEntryImg.src = imgPath;
 });
 
+// On submit, create a new object at the beginning of the data.entries array
 $newEntryForm.addEventListener('submit', event => {
   event.preventDefault();
   const newEntry = {};
@@ -29,8 +31,18 @@ $newEntryForm.addEventListener('submit', event => {
   data.entries.unshift(newEntry);
   $newEntryImg.src = 'images/placeholder-image-square.jpg';
   $newEntryForm.reset();
+
+  // Create dom tree and add new entry to the page
+  $entryList.prepend(renderEntry(newEntry));
+  viewSwap($entriesView);
+
+  // Hide no entries text
+  if ($entryList.firstChild) {
+    toggleNoEntries();
+  }
 });
 
+// Render a dom tree for entries
 function renderEntry(entry) {
   const $entryItem = document.createElement('li');
   $entryItem.setAttribute('class', 'row');
@@ -61,18 +73,19 @@ function renderEntry(entry) {
   return $entryItem;
 }
 
+// Add all entries to the page
 document.addEventListener('DOMContentLoaded', event => {
   for (const entry in data.entries) {
     $entryList.appendChild(renderEntry(data.entries[entry]));
   }
 });
 
+// Toggle visibility of the no entries text
 function toggleNoEntries() {
-  $noEntries.classList.toggle('hidden');
+  if (!$noEntries.classList.contains('hidden')) { $noEntries.classList.add('hidden'); }
 }
 
-toggleNoEntries();
-
+// Swap the view between entries and form
 function viewSwap(view) {
   const $viewData = view.getAttribute('data-view');
   data.view = $viewData;
@@ -87,10 +100,12 @@ function viewSwap(view) {
   }
 }
 
+// Show entries when nav item is clicked
 $entriesLink.addEventListener('click', event => {
   viewSwap($entriesView);
 });
 
+// Show form when new button is clicked
 $formLink.addEventListener('click', event => {
   viewSwap($formView);
 });
