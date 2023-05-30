@@ -1,9 +1,15 @@
+// New nntry form elements
 const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
 
+// Entry list elements
 const $entryList = document.querySelector('#entries-list');
 const $noEntries = document.querySelector('#no-entries');
+
+// View elements
+const $formView = document.querySelector('[data-view="entry-form"]');
+const $entriesView = document.querySelector('[data-view="entries"]');
 
 $imgInput.addEventListener('input', event => {
   const imgPath = event.target.value;
@@ -64,3 +70,19 @@ function toggleNoEntries() {
 }
 
 toggleNoEntries();
+
+function viewSwap(view) {
+  const $viewData = view.getAttribute('data-view');
+  data.view = $viewData;
+
+  if ($viewData === 'entries') {
+    $formView.classList.add('hidden');
+    $entriesView.classList.remove('hidden');
+
+  } else if ($viewData === 'entry-form') {
+    $entriesView.classList.add('hidden');
+    $formView.classList.remove('hidden');
+  }
+}
+
+viewSwap($entriesView);
