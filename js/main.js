@@ -17,6 +17,7 @@ const $formLink = document.querySelector('#form-link');
 
 // Modal Elements
 const $modalOverlay = document.querySelector('#overlay');
+const $cancelModal = document.querySelector('#cancel-modal');
 
 // Add image to placeholder from form
 $imgInput.addEventListener('input', event => {
@@ -186,4 +187,8 @@ $entryList.addEventListener('click', event => {
 
 $deleteEntry.addEventListener('click', event => {
   $modalOverlay.classList.remove('hidden');
+});
+
+$cancelModal.addEventListener('click', event => {
+  $modalOverlay.classList.add('hidden');
 });
