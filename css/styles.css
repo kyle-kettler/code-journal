@@ -119,3 +119,13 @@ label {
 .space-between {
   justify-content: space-between;
 }
+
+.fa-pencil {
+  color: var(--purple);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.fa-pencil:hover {
+  color: var(--dark-purple);
+}

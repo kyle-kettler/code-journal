@@ -1,7 +1,8 @@
-// New nntry form elements
+// New entry form elements
 const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
+const $entryFormTitle = document.querySelector('#entry-form-title');
 
 // Entry list elements
 const $entryList = document.querySelector('#entries-list');
@@ -20,21 +21,51 @@ $imgInput.addEventListener('input', event => {
 });
 
 // On submit, create a new object at the beginning of the data.entries array
+// Or update current item if user is editing an entry
 $newEntryForm.addEventListener('submit', event => {
   event.preventDefault();
   const newEntry = {};
-  newEntry.title = $newEntryForm.elements.title.value;
-  newEntry.photoURL = $newEntryForm.elements.img.value;
-  newEntry.notes = $newEntryForm.elements.notes.value;
-  newEntry.entryID = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(newEntry);
-  $newEntryImg.src = 'images/placeholder-image-square.jpg';
-  $newEntryForm.reset();
 
-  // Create dom tree and add new entry to the page
-  $entryList.prepend(renderEntry(newEntry));
-  viewSwap('entries');
+  if (data.editing === null) {
+    newEntry.title = $newEntryForm.elements.title.value;
+    newEntry.photoURL = $newEntryForm.elements.img.value;
+    newEntry.notes = $newEntryForm.elements.notes.value;
+    newEntry.entryID = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(newEntry);
+    $newEntryImg.src = 'images/placeholder-image-square.jpg';
+    $newEntryForm.reset();
+
+    // Create dom tree and add new entry to the page
+    $entryList.prepend(renderEntry(newEntry));
+    viewSwap('entries');
+  } else if (data.editing !== null) {
+
+    newEntry.entryID = data.editing.entryID;
+    newEntry.title = $newEntryForm.elements.title.value;
+    newEntry.photoURL = $newEntryForm.elements.img.value;
+    newEntry.notes = $newEntryForm.elements.notes.value;
+
+    for (let i = 0; i < data.entries.length; i++) {
+      if (newEntry.entryID === data.entries[i].entryID) {
+        data.entries.splice(i, 1, newEntry);
+      }
+    }
+
+    const $entryItems = $entryList.childNodes;
+    for (let i = 0; i < $entryItems.length; i++) {
+      if (parseInt($entryItems[i].getAttribute('data-entry-id')) === newEntry.entryID) {
+        $entryItems[i].replaceWith(renderEntry(newEntry));
+      }
+    }
+
+    data.editing = null;
+
+    $entryFormTitle.textContent = 'New Entry';
+    $newEntryImg.src = 'images/placeholder-image-square.jpg';
+    $newEntryForm.reset();
+    viewSwap('entries');
+  }
 
   // Hide no entries text
   if ($entryList.firstChild) {
@@ -46,6 +77,7 @@ $newEntryForm.addEventListener('submit', event => {
 function renderEntry(entry) {
   const $entryItem = document.createElement('li');
   $entryItem.setAttribute('class', 'row');
+  $entryItem.setAttribute('data-entry-id', entry.entryID);
 
   const $entryCol1 = document.createElement('div');
   $entryCol1.setAttribute('class', 'entry-col');
@@ -58,8 +90,14 @@ function renderEntry(entry) {
   const $entryCol2 = document.createElement('div');
   $entryCol2.setAttribute('class', 'entry-col');
 
+  const $entryHeadlineWrap = document.createElement('div');
+  $entryHeadlineWrap.setAttribute('class', 'flex space-between');
+
   const $entryH2 = document.createElement('h2');
   $entryH2.textContent = entry.title;
+
+  const $entryPencil = document.createElement('i');
+  $entryPencil.setAttribute('class', 'fa-solid fa-pencil');
 
   const $entryNote = document.createElement('p');
   $entryNote.textContent = entry.notes;
@@ -67,7 +105,9 @@ function renderEntry(entry) {
   $entryItem.appendChild($entryCol1);
   $entryItem.appendChild($entryCol2);
   $entryCol1.appendChild($entryImg);
-  $entryCol2.appendChild($entryH2);
+  $entryCol2.appendChild($entryHeadlineWrap);
+  $entryHeadlineWrap.appendChild($entryH2);
+  $entryHeadlineWrap.appendChild($entryPencil);
   $entryCol2.appendChild($entryNote);
 
   return $entryItem;
@@ -98,10 +138,12 @@ function viewSwap(view) {
   if (view === 'entries') {
     $formView.classList.add('hidden');
     $entriesView.classList.remove('hidden');
+    data.editing = null;
 
   } else if (view === 'entry-form') {
     $entriesView.classList.add('hidden');
     $formView.classList.remove('hidden');
+    data.editing = null;
   }
 }
 
@@ -113,4 +155,23 @@ $entriesLink.addEventListener('click', event => {
 // Show form when new button is clicked
 $formLink.addEventListener('click', event => {
   viewSwap('entry-form');
+  $newEntryForm.reset();
+});
+
+// Edit entry on click of pencil icon
+$entryList.addEventListener('click', event => {
+  if (event.target.tagName === 'I') {
+    viewSwap('entry-form');
+
+    for (const entry in data.entries) {
+      const targetEntryId = event.target.closest('[data-entry-id]').getAttribute('data-entry-id');
+      if (data.entries[entry].entryID === parseInt(targetEntryId)) {
+        data.editing = data.entries[entry];
+      }
+    }
+    $newEntryForm.elements.title.value = data.editing.title;
+    $newEntryForm.elements.img.value = data.editing.photoURL;
+    $newEntryForm.elements.notes.value = data.editing.notes;
+    $entryFormTitle.textContent = 'Edit Entry';
+  }
 });
