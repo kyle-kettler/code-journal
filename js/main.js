@@ -21,6 +21,7 @@ $imgInput.addEventListener('input', event => {
 });
 
 // On submit, create a new object at the beginning of the data.entries array
+// Or update current item if user is editing an entry
 $newEntryForm.addEventListener('submit', event => {
   event.preventDefault();
   const newEntry = {};
