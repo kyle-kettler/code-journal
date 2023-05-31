@@ -24,18 +24,47 @@ $imgInput.addEventListener('input', event => {
 $newEntryForm.addEventListener('submit', event => {
   event.preventDefault();
   const newEntry = {};
-  newEntry.title = $newEntryForm.elements.title.value;
-  newEntry.photoURL = $newEntryForm.elements.img.value;
-  newEntry.notes = $newEntryForm.elements.notes.value;
-  newEntry.entryID = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(newEntry);
-  $newEntryImg.src = 'images/placeholder-image-square.jpg';
-  $newEntryForm.reset();
 
-  // Create dom tree and add new entry to the page
-  $entryList.prepend(renderEntry(newEntry));
-  viewSwap('entries');
+  if (data.editing === null) {
+    newEntry.title = $newEntryForm.elements.title.value;
+    newEntry.photoURL = $newEntryForm.elements.img.value;
+    newEntry.notes = $newEntryForm.elements.notes.value;
+    newEntry.entryID = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(newEntry);
+    $newEntryImg.src = 'images/placeholder-image-square.jpg';
+    $newEntryForm.reset();
+
+    // Create dom tree and add new entry to the page
+    $entryList.prepend(renderEntry(newEntry));
+    viewSwap('entries');
+  } else if (data.editing !== null) {
+
+    newEntry.entryID = data.editing.entryID;
+    newEntry.title = $newEntryForm.elements.title.value;
+    newEntry.photoURL = $newEntryForm.elements.img.value;
+    newEntry.notes = $newEntryForm.elements.notes.value;
+
+    for (let i = 0; i < data.entries.length; i++) {
+      if (newEntry.entryID === data.entries[i].entryID) {
+        data.entries.splice(i, 1, newEntry);
+      }
+    }
+
+    const $entryItems = $entryList.childNodes;
+    for (let i = 0; i < $entryItems.length; i++) {
+      if (parseInt($entryItems[i].getAttribute('data-entry-id')) === newEntry.entryID) {
+        $entryItems[i].replaceWith(renderEntry(newEntry));
+      }
+    }
+
+    data.editing = null;
+
+    $entryFormTitle.textContent = 'New Entry';
+    $newEntryImg.src = 'images/placeholder-image-square.jpg';
+    $newEntryForm.reset();
+    viewSwap('entries');
+  }
 
   // Hide no entries text
   if ($entryList.firstChild) {
@@ -108,10 +137,12 @@ function viewSwap(view) {
   if (view === 'entries') {
     $formView.classList.add('hidden');
     $entriesView.classList.remove('hidden');
+    data.editing = null;
 
   } else if (view === 'entry-form') {
     $entriesView.classList.add('hidden');
     $formView.classList.remove('hidden');
+    data.editing = null;
   }
 }
 
@@ -123,8 +154,10 @@ $entriesLink.addEventListener('click', event => {
 // Show form when new button is clicked
 $formLink.addEventListener('click', event => {
   viewSwap('entry-form');
+  $newEntryForm.reset();
 });
 
+// Edit entry on click of pencil icon
 $entryList.addEventListener('click', event => {
   if (event.target.tagName === 'I') {
     viewSwap('entry-form');
