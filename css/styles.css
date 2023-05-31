@@ -5,6 +5,7 @@
   --border: rgb(182, 182, 182);
   --light-grey: rgb(240, 240, 240);
   --dark-grey: rgb(41, 41, 41);
+  --red: rgb(220, 38, 38);
 }
 
 body {
@@ -67,11 +68,6 @@ label {
   border-radius: 0.25rem;
 }
 
-.submit-row {
-  display: flex;
-  justify-content: end;
-}
-
 .button {
   background-color: var(--purple);
   color: var(--white);
@@ -120,6 +116,10 @@ label {
   justify-content: space-between;
 }
 
+.flex-reverse {
+  flex-direction: row-reverse;
+}
+
 .fa-pencil {
   color: var(--purple);
   font-size: 1.25rem;
@@ -128,4 +128,12 @@ label {
 
 .fa-pencil:hover {
   color: var(--dark-purple);
+}
+
+.delete-button {
+  background-color: transparent;
+  color: var(--red);
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
 }

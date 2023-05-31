@@ -3,6 +3,7 @@ const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $entryFormTitle = document.querySelector('#entry-form-title');
+const $deleteEntry = document.querySelector('#delete-button');
 
 // Entry list elements
 const $entryList = document.querySelector('#entries-list');
@@ -61,6 +62,7 @@ $newEntryForm.addEventListener('submit', event => {
 
     data.editing = null;
 
+    $deleteEntry.classList.add('hidden');
     $entryFormTitle.textContent = 'New Entry';
     $newEntryImg.src = 'images/placeholder-image-square.jpg';
     $newEntryForm.reset();
@@ -138,11 +140,13 @@ function viewSwap(view) {
   if (view === 'entries') {
     $formView.classList.add('hidden');
     $entriesView.classList.remove('hidden');
+    $deleteEntry.classList.add('hidden');
     data.editing = null;
 
   } else if (view === 'entry-form') {
     $entriesView.classList.add('hidden');
     $formView.classList.remove('hidden');
+    $deleteEntry.classList.add('hidden');
     data.editing = null;
   }
 }
@@ -173,5 +177,6 @@ $entryList.addEventListener('click', event => {
     $newEntryForm.elements.img.value = data.editing.photoURL;
     $newEntryForm.elements.notes.value = data.editing.notes;
     $entryFormTitle.textContent = 'Edit Entry';
+    $deleteEntry.classList.remove('hidden');
   }
 });
