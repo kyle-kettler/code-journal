@@ -15,6 +15,9 @@ const $entriesView = document.querySelector('[data-view="entries"]');
 const $entriesLink = document.querySelector('#entries-link');
 const $formLink = document.querySelector('#form-link');
 
+// Modal Elements
+const $modalOverlay = document.querySelector('#overlay');
+
 // Add image to placeholder from form
 $imgInput.addEventListener('input', event => {
   const imgPath = event.target.value;
@@ -179,4 +182,8 @@ $entryList.addEventListener('click', event => {
     $entryFormTitle.textContent = 'Edit Entry';
     $deleteEntry.classList.remove('hidden');
   }
+});
+
+$deleteEntry.addEventListener('click', event => {
+  $modalOverlay.classList.remove('hidden');
 });

@@ -2,10 +2,11 @@
   --purple: rgb(86, 43, 129);
   --dark-purple: rgb(71, 35, 107);
   --white: rgb(255, 255, 255);
-  --border: rgb(182, 182, 182);
+  --mid-grey: rgb(182, 182, 182);
   --light-grey: rgb(240, 240, 240);
   --dark-grey: rgb(41, 41, 41);
   --red: rgb(220, 38, 38);
+  --overlay: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -38,7 +39,7 @@ input,
 textarea {
   width: 100%;
   border: 1px solid;
-  border-color: var(--border);
+  border-color: var(--mid-grey);
   border-radius: 0.125rem;
   padding: 0.75rem;
   margin-top: 0.5rem;
@@ -76,10 +77,31 @@ label {
   border-radius: 0.25rem;
   text-transform: uppercase;
   cursor: pointer;
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 500;
 }
 
 .button:hover {
   background-color: var(--dark-purple);
+}
+
+.button.cancel {
+  background-color: var(--mid-grey);
+  color: var(--dark-grey);
+  padding: 0.5rem 0.75rem;
+}
+
+.button.cancel:hover {
+  background-color: rgb(152, 152, 152);
+}
+
+.button.destructive {
+  background-color: var(--red);
+  padding: 0.5rem 0.75rem;
+}
+
+.button.destructive:hover {
+  background-color: rgb(195, 32, 32);
 }
 
 .entries-list {
@@ -136,4 +158,27 @@ label {
   border: none;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-card {
+  background-color: var(--white);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
 }
