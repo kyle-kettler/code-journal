@@ -15,6 +15,7 @@ const $entriesView = document.querySelector('[data-view="entries"]');
 const $entriesLink = document.querySelector('#entries-link');
 const $formLink = document.querySelector('#form-link');
 const $searchInput = document.querySelector('#search-input');
+const $sortButton = document.querySelector('#sort');
 
 // Modal Elements
 const $modalOverlay = document.querySelector('#overlay');
@@ -227,5 +228,30 @@ $searchInput.addEventListener('keyup', event => {
     } else {
       $entryItems[i].classList.add('hidden');
     }
+  }
+});
+
+// Sort entries
+$sortButton.addEventListener('click', event => {
+  if ($sortButton.getAttribute('data-order') === 'descending') {
+    data.entries.sort(function (x, y) {
+      return x.entryID - y.entryID;
+    });
+    $sortButton.setAttribute('data-order', 'ascending');
+    $sortButton.textContent = 'Ascending';
+  } else if ($sortButton.getAttribute('data-order') === 'ascending') {
+    data.entries.sort(function (x, y) {
+      return y.entryID - x.entryID;
+    });
+    $sortButton.setAttribute('data-order', 'descending');
+    $sortButton.textContent = 'Descending';
+  }
+
+  while ($entryList.lastElementChild) {
+    $entryList.removeChild($entryList.lastElementChild);
+  }
+
+  for (const entry in data.entries) {
+    $entryList.appendChild(renderEntry(data.entries[entry]));
   }
 });
