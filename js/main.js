@@ -14,6 +14,7 @@ const $formView = document.querySelector('[data-view="entry-form"]');
 const $entriesView = document.querySelector('[data-view="entries"]');
 const $entriesLink = document.querySelector('#entries-link');
 const $formLink = document.querySelector('#form-link');
+const $searchInput = document.querySelector('#search-input');
 
 // Modal Elements
 const $modalOverlay = document.querySelector('#overlay');
@@ -213,4 +214,18 @@ $confirmDelete.addEventListener('click', event => {
   toggleNoEntries();
   $modalOverlay.classList.add('hidden');
   viewSwap('entries');
+});
+
+// Search funtionanilty
+$searchInput.addEventListener('keyup', event => {
+  const $entryItems = $entryList.childNodes;
+  const $searchQuery = $searchInput.value;
+
+  for (let i = 0; i < $entryItems.length; i++) {
+    if ($entryItems[i].textContent.toLowerCase().includes($searchQuery.toLowerCase())) {
+      $entryItems[i].classList.remove('hidden');
+    } else {
+      $entryItems[i].classList.add('hidden');
+    }
+  }
 });
