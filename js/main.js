@@ -3,6 +3,7 @@ const $newEntryImg = document.querySelector('#entry-img');
 const $imgInput = document.querySelector('#img-url');
 const $newEntryForm = document.querySelector('#new-entry-form');
 const $entryFormTitle = document.querySelector('#entry-form-title');
+const $deleteEntry = document.querySelector('#delete-button');
 
 // Entry list elements
 const $entryList = document.querySelector('#entries-list');
@@ -13,6 +14,11 @@ const $formView = document.querySelector('[data-view="entry-form"]');
 const $entriesView = document.querySelector('[data-view="entries"]');
 const $entriesLink = document.querySelector('#entries-link');
 const $formLink = document.querySelector('#form-link');
+
+// Modal Elements
+const $modalOverlay = document.querySelector('#overlay');
+const $cancelModal = document.querySelector('#cancel-modal');
+const $confirmDelete = document.querySelector('#confirm-delete');
 
 // Add image to placeholder from form
 $imgInput.addEventListener('input', event => {
@@ -61,7 +67,7 @@ $newEntryForm.addEventListener('submit', event => {
 
     data.editing = null;
 
-    $entryFormTitle.textContent = 'New Entry';
+    $deleteEntry.classList.add('hidden');
     $newEntryImg.src = 'images/placeholder-image-square.jpg';
     $newEntryForm.reset();
     viewSwap('entries');
@@ -120,15 +126,17 @@ document.addEventListener('DOMContentLoaded', event => {
   }
 
   viewSwap(data.view);
+  toggleNoEntries();
 
-  if ($entryList.firstChild) {
-    toggleNoEntries($formView);
-  }
 });
 
 // Toggle visibility of the no entries text
 function toggleNoEntries() {
-  if (!$noEntries.classList.contains('hidden')) { $noEntries.classList.add('hidden'); }
+  if (!$noEntries.classList.contains('hidden') && $entryList.firstChild) {
+    $noEntries.classList.add('hidden');
+  } else if (!$entryList.firstChild) {
+    $noEntries.classList.remove('hidden');
+  }
 }
 
 // Swap the view between entries and form
@@ -138,11 +146,14 @@ function viewSwap(view) {
   if (view === 'entries') {
     $formView.classList.add('hidden');
     $entriesView.classList.remove('hidden');
+    $deleteEntry.classList.add('hidden');
+    $entryFormTitle.textContent = 'New Entry';
     data.editing = null;
 
   } else if (view === 'entry-form') {
     $entriesView.classList.add('hidden');
     $formView.classList.remove('hidden');
+    $deleteEntry.classList.add('hidden');
     data.editing = null;
   }
 }
@@ -173,5 +184,33 @@ $entryList.addEventListener('click', event => {
     $newEntryForm.elements.img.value = data.editing.photoURL;
     $newEntryForm.elements.notes.value = data.editing.notes;
     $entryFormTitle.textContent = 'Edit Entry';
+    $deleteEntry.classList.remove('hidden');
   }
+});
+
+$deleteEntry.addEventListener('click', event => {
+  $modalOverlay.classList.remove('hidden');
+});
+
+$cancelModal.addEventListener('click', event => {
+  $modalOverlay.classList.add('hidden');
+});
+
+$confirmDelete.addEventListener('click', event => {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.editing.entryID === data.entries[i].entryID) {
+      data.entries.splice(i, 1);
+    }
+  }
+
+  const $entryItems = $entryList.childNodes;
+  for (let i = 0; i < $entryItems.length; i++) {
+    if (parseInt($entryItems[i].getAttribute('data-entry-id')) === data.editing.entryID) {
+      $entryItems[i].remove();
+    }
+  }
+
+  toggleNoEntries();
+  $modalOverlay.classList.add('hidden');
+  viewSwap('entries');
 });
