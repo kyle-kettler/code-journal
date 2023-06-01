@@ -7,6 +7,8 @@
   --dark-grey: rgb(41, 41, 41);
   --red: rgb(220, 38, 38);
   --overlay: rgba(0, 0, 0, 0.5);
+  --grey-hover: rgb(152, 152, 152);
+  --red-hover: rgb(195, 32, 32);
 }
 
 body {
@@ -79,6 +81,7 @@ label {
   cursor: pointer;
   font-family: "Proza Libre", sans-serif;
   font-weight: 500;
+  transition: background-color 250ms ease-out;
 }
 
 .button:hover {
@@ -92,7 +95,7 @@ label {
 }
 
 .button.cancel:hover {
-  background-color: rgb(152, 152, 152);
+  background-color: var(--grey-hover);
 }
 
 .button.destructive {
@@ -101,7 +104,21 @@ label {
 }
 
 .button.destructive:hover {
-  background-color: rgb(195, 32, 32);
+  background-color: var(--red-hover);
+}
+
+.button.text {
+  background-color: transparent;
+  color: var(--red);
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  text-transform: capitalize;
+  padding: 0.5rem 0;
+}
+
+.button.text:hover {
+  color: var(--red-hover);
 }
 
 .entries-list {
@@ -146,18 +163,11 @@ label {
   color: var(--purple);
   font-size: 1.25rem;
   cursor: pointer;
+  transition: background-color 250ms ease-out;
 }
 
 .fa-pencil:hover {
   color: var(--dark-purple);
-}
-
-.delete-button {
-  background-color: transparent;
-  color: var(--red);
-  border: none;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 .overlay {
