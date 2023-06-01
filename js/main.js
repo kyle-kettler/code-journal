@@ -238,11 +238,13 @@ $sortButton.addEventListener('click', event => {
       return x.entryID - y.entryID;
     });
     $sortButton.setAttribute('data-order', 'ascending');
+    $sortButton.textContent = 'Sort: Ascending';
   } else if ($sortButton.getAttribute('data-order') === 'ascending') {
     data.entries.sort(function (x, y) {
       return y.entryID - x.entryID;
     });
     $sortButton.setAttribute('data-order', 'descending');
+    $sortButton.textContent = 'Sort: Descending';
   }
 
   while ($entryList.lastElementChild) {
