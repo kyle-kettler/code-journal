@@ -66,7 +66,6 @@ input.search {
   margin: 0;
   padding: 0.5rem;
   max-width: 15rem;
-  margin-bottom: 1rem;
 }
 
 label {
@@ -89,6 +88,7 @@ label {
   cursor: pointer;
   font-family: "Proza Libre", sans-serif;
   font-weight: 500;
+  font-size: 0.75rem;
   transition: background-color 250ms ease-out;
 }
 
@@ -96,13 +96,13 @@ label {
   background-color: var(--dark-purple);
 }
 
-.button.cancel {
+.button.secondary {
   background-color: var(--mid-grey);
   color: var(--dark-grey);
   padding: 0.5rem 0.75rem;
 }
 
-.button.cancel:hover {
+.button.secondary:hover {
   background-color: var(--grey-hover);
 }
 
@@ -199,4 +199,8 @@ label {
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
+}
+
+.align-center {
+  align-items: center;
 }
