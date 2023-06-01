@@ -167,6 +167,10 @@ label {
   flex-direction: row-reverse;
 }
 
+.flex-group {
+  column-gap: 0.5rem;
+}
+
 .fa-pencil {
   color: var(--purple);
   font-size: 1.25rem;
